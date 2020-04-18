@@ -8,13 +8,13 @@ package utn.dds.tpsClase.ejercicio101;
  */
 public class TarifaEstandar extends Tarifa {
 	
-	TarifaEstandar instance;
+	private static TarifaEstandar instance;
 	
 	private TarifaEstandar() {
 		
 	}
 	
-	public Tarifa getInstance() {
+	public static Tarifa getInstance() {
 		if (instance == null) {
 			instance = new TarifaEstandar();
 		}

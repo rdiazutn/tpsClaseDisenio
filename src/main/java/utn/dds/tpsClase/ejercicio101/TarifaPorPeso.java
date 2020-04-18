@@ -7,13 +7,14 @@ package utn.dds.tpsClase.ejercicio101;
  * @created 18-abr.-2020 6:50:17 p. m.
  */
 public class TarifaPorPeso extends Tarifa {
-	TarifaPorPeso instance;
+	
+	private static TarifaPorPeso instance;
 	
 	private TarifaPorPeso() {
 		
 	}
 	
-	public Tarifa getInstance() {
+	public static Tarifa getInstance() {
 		if (instance == null) {
 			instance = new TarifaPorPeso();
 		}
