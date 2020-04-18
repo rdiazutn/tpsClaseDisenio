@@ -20,8 +20,6 @@ public class TarifaEstandar extends Tarifa {
 		}
 		return instance;
 	}
-	
-
 
 	public Float getPrecio(Envio envio){
 		return getTarifa(envio.esLocal()).floatValue() * envio.getPeso();
