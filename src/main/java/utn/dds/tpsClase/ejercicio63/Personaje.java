@@ -1,11 +1,10 @@
 package utn.dds.tpsClase.ejercicio63;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-/**
- * @version 1.0
- * @created 18-abr.-2020 9:09:18 p. m.
- */
-public class Personaje {
+public abstract class Personaje {
 
 	private Float altura;
 	private Set<String> habilidades;
@@ -13,17 +12,55 @@ public class Personaje {
 	private int inteligencia;
 	private String nombre;
 	private Float peso;
-	private TipoPersonaje tipo;
-	public EnumCaracteristica m_EnumCaracteristica;
+
 
 	public Personaje(){
 
 	}
-
-	public void finalize() throws Throwable {
-
+	
+	public boolean esAlto() {
+		return altura > 1.70;
 	}
-	public String getCaracteristica(){
-		return "";
+	
+	public boolean esInteligente() {
+		return inteligencia > 1000;
 	}
-}//end Personaje
+
+	public boolean esGordo() {
+		return peso > 100;
+	}
+	
+	public List<String> getCaracteristicas(){
+		List<String> caracteristicas = new ArrayList();
+		if(esAlto()) {
+			caracteristicas.add("Alto");
+		}
+		else { 
+			caracteristicas.add("Enano");
+		}
+			
+		if(esInteligente()) {
+			caracteristicas.add("Inteligente");
+		}
+		else {
+			caracteristicas.add("Tonto");
+		}
+		
+		if(esGordo()) {
+			caracteristicas.add("Gordo");
+		}
+		else {
+			caracteristicas.add("Flaco");
+		}
+		return caracteristicas;
+	}
+	
+	public abstract String getTipo();
+	
+	public String getNombre() {
+		
+		return getTipo() + " " + String.join(", ", getCaracteristicas()); 
+	
+	}
+	
+}
