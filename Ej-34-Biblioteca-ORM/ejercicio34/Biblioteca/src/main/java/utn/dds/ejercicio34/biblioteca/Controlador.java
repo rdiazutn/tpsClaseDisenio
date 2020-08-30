@@ -1,7 +1,7 @@
 package utn.dds.ejercicio34.biblioteca;
 
-import utn.dds.ejercicio34.db.entity.biblioteca.CopiaLibro;
-import utn.dds.ejercicio34.db.entity.biblioteca.Lector;
+import utn.dds.ejercicio34.db.entity.CopiaLibro;
+import utn.dds.ejercicio34.db.entity.Lector;
 
 /**
  * @author Daiana

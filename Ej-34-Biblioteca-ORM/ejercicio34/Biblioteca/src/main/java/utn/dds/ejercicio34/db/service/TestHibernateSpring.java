@@ -17,9 +17,9 @@ import utn.dds.ejercicio34.db.repository.TestEntityRepository;
 @Configuration
 @EnableTransactionManagement
 @EnableScheduling
-@ComponentScan(basePackages = {"utn.dds.tpAnual.db.service","utn.dds.tpAnual.db.scheduler"})
-@EntityScan(basePackages = "utn.dds.tpAnual.db.entity")
-@EnableJpaRepositories("utn.dds.tpAnual.db.repository")
+@ComponentScan(basePackages = {"utn.dds.ejercicio34.db.service"})
+@EntityScan(basePackages = "utn.dds.ejercicio34.db.entity")
+@EnableJpaRepositories("utn.dds.ejercicio34.db.repository")
 public class TestHibernateSpring {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
