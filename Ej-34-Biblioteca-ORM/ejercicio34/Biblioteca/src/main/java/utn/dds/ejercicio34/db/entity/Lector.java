@@ -23,10 +23,10 @@ public class Lector {
 	@Column(name = "DOMICILIO")
 	private String domicilio;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "lector")
 	private List<Multa> multas;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "lector")
 	private List<Prestamo> prestamos;
 
 	@Column(name = "TELEFONO", length = 50)

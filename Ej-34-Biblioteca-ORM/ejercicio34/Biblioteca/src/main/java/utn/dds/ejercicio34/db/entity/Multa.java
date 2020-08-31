@@ -2,6 +2,7 @@ package utn.dds.ejercicio34.db.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Daiana
@@ -20,17 +21,20 @@ public class Multa {
 	@Column(name = "FECHA_ALTA")
 	private LocalDate fechaDeAlta;
 
-	@Column(name = "FECHA_CANCELACION")
+	@Column(name = "FECHA_CANCELACION", nullable = true)
 	private LocalDate fechaCancelacion;
 
 	@Column(name = "OBSERVACION")
 	private String observacion;
 
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Lector lector;
+
 	public Multa(){
 
 	}
 
-	public int getDiasDeMulta(){
+	public int getDiasPenalizacion(){
 		return 0;
 	}
 

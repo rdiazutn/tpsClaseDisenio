@@ -25,7 +25,7 @@ public class Libro {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Categoria categoria;
 
-	@Column(name = "EDITORIAL")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Editorial editorial;
 
 	@Column(name = "TITULO", length = 255)

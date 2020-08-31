@@ -22,8 +22,8 @@ public class CopiaLibro {
 	@Column(name = "NUMERO_COPIA")
 	private Long numeroCopia;
 
-	@Column(name = "ESTADO", length = 50)
-	private String estado;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Estado estado;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Biblioteca biblioteca;
@@ -31,7 +31,7 @@ public class CopiaLibro {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Libro libro;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "copiaLibro")
 	private List<Prestamo> prestamos;
 
 	public CopiaLibro(){
