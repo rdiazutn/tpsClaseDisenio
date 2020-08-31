@@ -8,26 +8,25 @@ import javax.persistence.Entity;
  * @version 1.0
  * @created 29-Aug-2020 8:04:24 PM
  */
-@Entity(name = "Disponible")
-@DiscriminatorValue("Disponible")
 public class Disponible extends Estado {
 
-	private final String nombre = "Disponible";
+	private static Disponible instance;
 
-	public Disponible(){
-
-	}
-
-	public void prestar(){
+	private Disponible(){
 
 	}
 
-	public void reparar(){
+	public static Estado getInstance(){
+		if(instance == null)
+			instance = new Disponible();
+		return instance;
+	}
+
+	public Estado prestar(){
 
 	}
 
-	@Override
-	public String getNombre() {
-		return nombre;
+	public Estado reparar(){
+
 	}
 }

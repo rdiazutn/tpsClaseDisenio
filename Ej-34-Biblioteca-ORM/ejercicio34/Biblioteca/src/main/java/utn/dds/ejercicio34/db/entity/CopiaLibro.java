@@ -1,6 +1,7 @@
 package utn.dds.ejercicio34.db.entity;
 
 import utn.dds.ejercicio34.db.entity.estados.Estado;
+import utn.dds.ejercicio34.db.entity.estados.EstadoEnum;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,8 +23,8 @@ public class CopiaLibro {
 	@Column(name = "NUMERO_COPIA")
 	private Long numeroCopia;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Estado estado;
+	@Enumerated(EnumType.STRING)
+	private EstadoEnum estadoEnum;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Biblioteca biblioteca;
@@ -38,12 +39,12 @@ public class CopiaLibro {
 
 	}
 
-	public Boolean estaDisponible(){
-		return false;
+	public Estado getEstado(){
+		return this.estadoEnum.getEstadoEquivalente();
 	}
 
-	public Estado getEstado(){
-		return null;
+	public Boolean estaDisponible(){
+		return false;
 	}
 
 	public Long getCopiaLibroId() {
@@ -84,5 +85,13 @@ public class CopiaLibro {
 
 	public void setPrestamos(List<Prestamo> prestamos) {
 		this.prestamos = prestamos;
+	}
+
+	public void serPrestada() {
+		this.estadoEnum = EstadoEnum.PRESTADO;
+	}
+
+	public void serDevuelta() {
+		this.estadoEnum = EstadoEnum.DISPONIBLE;
 	}
 }

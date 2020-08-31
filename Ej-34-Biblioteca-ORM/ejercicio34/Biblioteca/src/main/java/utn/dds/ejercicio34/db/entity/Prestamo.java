@@ -1,7 +1,13 @@
 package utn.dds.ejercicio34.db.entity;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 /**
  * @author Daiana
@@ -26,6 +32,9 @@ public class Prestamo {
 	@Column(name = "FECHA_PRESTAMO")
 	private LocalDateTime fechaPrestamo;
 
+	@Column(name = "FECHA_FIN_PRESTAMO")
+	private LocalDateTime fechaFinPrestamo;
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Lector lector;
 
@@ -34,6 +43,14 @@ public class Prestamo {
 
 	public Prestamo(){
 
+	}
+
+	public Prestamo(CopiaLibro copiaLibro, LocalDateTime fechaPrestamo, Lector lector, String observacion, int duracionPrestamo) {
+		this.copiaLibro = copiaLibro;
+		this.fechaPrestamo = fechaPrestamo;
+		this.lector = lector;
+		this.observacion = observacion;
+		this.fechaFinPrestamo = LocalDateTime.now().plus(Long.valueOf(duracionPrestamo), ChronoUnit.DAYS );
 	}
 
 	public Long getPrestamoId() {
@@ -82,5 +99,23 @@ public class Prestamo {
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
+	}
+
+	public boolean esMultable() {
+		return LocalDateTime.now().isAfter(this.fechaFinPrestamo);
+	}
+
+	public int cantidadDiasMulta(int penaPorDia) {
+		return (int) Duration.between(fechaFinPrestamo, fechaDevolucion).toDays()
+				* penaPorDia;
+	}
+
+	public boolean estaVigente() {
+		return this.fechaPrestamo == null;
+	}
+
+	public void finalizar() {
+		this.copiaLibro.serDevuelta();
+		this.fechaDevolucion = LocalDateTime.now();
 	}
 }

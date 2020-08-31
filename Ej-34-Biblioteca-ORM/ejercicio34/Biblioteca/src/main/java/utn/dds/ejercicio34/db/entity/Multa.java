@@ -1,7 +1,10 @@
 package utn.dds.ejercicio34.db.entity;
 
+import sun.java2d.cmm.lcms.LcmsServiceProvider;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -21,8 +24,8 @@ public class Multa {
 	@Column(name = "FECHA_ALTA")
 	private LocalDate fechaDeAlta;
 
-	@Column(name = "FECHA_CANCELACION", nullable = true)
-	private LocalDate fechaCancelacion;
+	@Column(name = "FECHA_FIN_MULTA", nullable = true)
+	private LocalDate fechaFinMulta;
 
 	@Column(name = "OBSERVACION")
 	private String observacion;
@@ -32,6 +35,13 @@ public class Multa {
 
 	public Multa(){
 
+	}
+
+	public Multa(int cantidadDias, Lector lector, CopiaLibro copiaLibro) {
+		this.lector = lector;
+		this.fechaDeAlta = LocalDate.now();
+		this.fechaFinMulta = fechaDeAlta.plus(Long.valueOf(cantidadDias), ChronoUnit.DAYS);
+		this.observacion = "No devolvio el libro " + copiaLibro.getLibro().getTitulo();
 	}
 
 	public int getDiasPenalizacion(){
@@ -54,19 +64,26 @@ public class Multa {
 		this.fechaDeAlta = fechaDeAlta;
 	}
 
-	public LocalDate getFechaCancelacion() {
-		return fechaCancelacion;
-	}
-
-	public void setFechaCancelacion(LocalDate fechaCancelacion) {
-		this.fechaCancelacion = fechaCancelacion;
-	}
-
 	public String getObservacion() {
 		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
+	}
+
+    public boolean estaVigente() {
+		return LocalDate.now().isBefore(this.fechaFinMulta);
+    }
+
+	@Override
+	public String toString() {
+		return "Multa{" +
+				"multaId=" + multaId +
+				", fechaDeAlta=" + fechaDeAlta +
+				", fechaFinMulta=" + fechaFinMulta +
+				", observacion='" + observacion + '\'' +
+				", lector=" + lector +
+				'}';
 	}
 }

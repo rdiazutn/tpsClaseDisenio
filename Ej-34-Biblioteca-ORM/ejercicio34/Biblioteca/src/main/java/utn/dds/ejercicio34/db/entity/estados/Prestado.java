@@ -8,26 +8,18 @@ import javax.persistence.Entity;
  * @version 1.0
  * @created 29-Aug-2020 8:04:25 PM
  */
-@Entity(name = "Prestado")
-@DiscriminatorValue("Prestado")
 public class Prestado extends Estado {
 
-	private final String nombre = "Prestado";
 
 	public Prestado(){
 
 	}
 
-	public void disponibilizar(){
+	public Estado disponibilizar(){
 
 	}
 
-	public void retrasar(){
+	public Estado retrasar(){
 
-	}
-
-	@Override
-	public String getNombre() {
-		return nombre;
 	}
 }

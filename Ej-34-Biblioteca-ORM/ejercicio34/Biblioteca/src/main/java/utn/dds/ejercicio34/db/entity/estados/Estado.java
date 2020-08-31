@@ -7,52 +7,21 @@ import javax.persistence.*;
  * @version 1.0
  * @created 29-Aug-2020 8:04:24 PM
  */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "ESTADO")
 public abstract class Estado {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long estadoId;
-
-	@Column(name = "NOMBRE", unique = true, nullable = false, length = 50)
-	private String nombre;
-
-	public Estado(){
+	public Estado disponibilizar(){
 
 	}
 
-	public void disponibilizar(){
+	public Estado prestar(){
 
 	}
 
-	public void prestar(){
+	public Estado reparar(){
 
 	}
 
-	public void reparar(){
+	public Estado retrasar(){
 
-	}
-
-	public void retrasar(){
-
-	}
-
-	public Long getEstadoId() {
-		return estadoId;
-	}
-
-	public void setEstadoId(Long estadoId) {
-		this.estadoId = estadoId;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 }

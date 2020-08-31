@@ -8,22 +8,14 @@ import javax.persistence.Entity;
  * @version 1.0
  * @created 29-Aug-2020 8:04:24 PM
  */
-@Entity(name = "EnReparacion")
-@DiscriminatorValue("EnReparacion")
 public class EnReparacion extends Estado {
 
-	private final String nombre = "En reparacion";
 
 	public EnReparacion(){
 
 	}
 
-	public void disponibilizar(){
+	public Estado disponibilizar(){
 
-	}
-
-	@Override
-	public String getNombre() {
-		return nombre;
 	}
 }
