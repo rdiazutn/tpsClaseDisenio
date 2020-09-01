@@ -50,14 +50,6 @@ public class Lector {
 		this.multas.add(multa);
 	}
 
-	public void devolver(CopiaLibro copia) {
-
-	}
-
-	public Boolean puedePrestarseUnaCopia() {
-		return false;
-	}
-
 	public Long getLectorId() {
 		return lectorId;
 	}
