@@ -14,6 +14,11 @@ import java.util.List;
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
 
 
-    @Query("SELECT p FROM Prestamo p WHERE p.copiaLibro = :copiaLibro AND p.lector = :lector")
-    List<Prestamo> findPrestamoBy(@Param("lector") Lector lector, @Param("copiaLibro") CopiaLibro copiaLibro);
+    @Query("SELECT p FROM Prestamo p " +
+            "JOIN FETCH p.lector lec  " +
+            "JOIN FETCH p.copiaLibro c " +
+            "JOIN FETCH c.libro l " +
+            "LEFT JOIN FETCH lec.multas m  " +
+            "WHERE  p.lector = :lector")
+    List<Prestamo> findPrestamoBy(@Param("lector") Lector lector);
 }

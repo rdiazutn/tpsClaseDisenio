@@ -10,12 +10,20 @@ import javax.persistence.Entity;
  */
 public class EnReparacion extends Estado {
 
+	private static EnReparacion instance;
 
-	public EnReparacion(){
+	private EnReparacion(){
 
 	}
 
-	public Estado disponibilizar(){
+	public static Estado getInstance(){
+		if(instance == null)
+			instance = new EnReparacion();
+		return instance;
+	}
 
+	@Override
+	public Estado disponibilizar(){
+		return Disponible.getInstance();
 	}
 }

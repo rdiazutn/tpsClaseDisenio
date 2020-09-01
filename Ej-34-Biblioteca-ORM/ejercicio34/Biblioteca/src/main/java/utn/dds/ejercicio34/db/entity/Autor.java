@@ -1,6 +1,7 @@
 package utn.dds.ejercicio34.db.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +19,7 @@ public class Autor {
 	private Long autorId;
 
 	@Column(name = "FECHA_NACIMIENTO")
-	private LocalDateTime fechaNacimiento;
+	private LocalDate fechaNacimiento;
 
 	@Column(name = "NOMBRE_APELLIDO", length = 255)
 	private String nombreApellido;
@@ -38,11 +39,11 @@ public class Autor {
 		this.autorId = autorId;
 	}
 
-	public LocalDateTime getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

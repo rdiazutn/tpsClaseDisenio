@@ -5,6 +5,7 @@ import utn.dds.ejercicio34.db.entity.estados.EstadoEnum;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Daiana
@@ -44,7 +45,7 @@ public class CopiaLibro {
 	}
 
 	public Boolean estaDisponible(){
-		return false;
+		return this.estadoEnum == EstadoEnum.DISPONIBLE;
 	}
 
 	public Long getCopiaLibroId() {
@@ -87,11 +88,28 @@ public class CopiaLibro {
 		this.prestamos = prestamos;
 	}
 
+	public EstadoEnum getEstadoEnum() {
+		return estadoEnum;
+	}
+
+	public void setEstadoEnum(EstadoEnum estadoEnum) {
+		this.estadoEnum = estadoEnum;
+	}
+
 	public void serPrestada() {
-		this.estadoEnum = EstadoEnum.PRESTADO;
+		Estado estado = this.estadoEnum.getEstadoEquivalente().prestar();
+		cambiarEstadoA(estado);
+	}
+
+	private void cambiarEstadoA(Estado estado){
+		Optional<EstadoEnum> estadoOptional = EstadoEnum.fromEstado(estado);
+		if (estadoOptional.isPresent()) {
+			this.estadoEnum = estadoOptional.get();
+		}
 	}
 
 	public void serDevuelta() {
-		this.estadoEnum = EstadoEnum.DISPONIBLE;
+		Estado estado = this.estadoEnum.getEstadoEquivalente().disponibilizar();
+		cambiarEstadoA(estado);
 	}
 }

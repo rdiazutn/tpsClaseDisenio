@@ -10,16 +10,24 @@ import javax.persistence.Entity;
  */
 public class Prestado extends Estado {
 
+	private static Prestado instance;
 
-	public Prestado(){
+	private Prestado(){
 
 	}
+	public static Estado getInstance(){
+		if(instance == null)
+			instance = new Prestado();
+		return instance;
+	}
 
+	@Override
 	public Estado disponibilizar(){
-
+		return Disponible.getInstance();
 	}
 
+	@Override
 	public Estado retrasar(){
-
+		return Retrasado.getInstance();
 	}
 }

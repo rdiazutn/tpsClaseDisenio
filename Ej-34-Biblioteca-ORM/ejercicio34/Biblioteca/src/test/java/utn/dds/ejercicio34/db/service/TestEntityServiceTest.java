@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import utn.dds.ejercicio34.db.entity.TestEntity;
-import utn.dds.ejercicio34.db.repository.TestEntityRepository;
 
 import static org.junit.Assert.assertEquals;
 

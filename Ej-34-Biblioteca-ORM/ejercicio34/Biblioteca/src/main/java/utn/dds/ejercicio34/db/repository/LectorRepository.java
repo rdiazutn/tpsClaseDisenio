@@ -13,6 +13,9 @@ import java.util.List;
 public interface LectorRepository extends JpaRepository<Lector, Long> {
 
 
-    @Query("SELECT l FROM Lector l WHERE l.nombreApellido LIKE :nombre")
+    @Query("SELECT l FROM Lector l " +
+            " LEFT JOIN FETCH l.multas m "+
+            " LEFT JOIN FETCH l.prestamos p " +
+            " WHERE l.nombreApellido LIKE :nombre")
     List<Lector> getByNombre(@Param("nombre")String nombreLector);
 }

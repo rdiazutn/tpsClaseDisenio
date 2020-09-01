@@ -23,7 +23,7 @@ public class Prestamo {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long prestamoId;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private CopiaLibro copiaLibro;
 
 	@Column(name = "FECHA_DEVOLUCION")
@@ -35,7 +35,7 @@ public class Prestamo {
 	@Column(name = "FECHA_FIN_PRESTAMO")
 	private LocalDateTime fechaFinPrestamo;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Lector lector;
 
 	@Column(name = "OBSERVACION")
@@ -111,7 +111,7 @@ public class Prestamo {
 	}
 
 	public boolean estaVigente() {
-		return this.fechaPrestamo == null;
+		return this.fechaDevolucion == null;
 	}
 
 	public void finalizar() {

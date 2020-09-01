@@ -1,11 +1,9 @@
 package utn.dds.ejercicio34.db.entity;
 
-import sun.java2d.cmm.lcms.LcmsServiceProvider;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+
 
 /**
  * @author Daiana

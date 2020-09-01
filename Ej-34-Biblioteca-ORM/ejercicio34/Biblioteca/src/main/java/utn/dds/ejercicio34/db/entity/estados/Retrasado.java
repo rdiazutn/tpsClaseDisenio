@@ -10,12 +10,19 @@ import javax.persistence.Entity;
  */
 public class Retrasado extends Estado {
 
+	private static Retrasado instance;
 
-	public Retrasado(){
+	private Retrasado(){
 
 	}
+	public static Estado getInstance(){
+		if(instance == null)
+			instance = new Retrasado();
+		return instance;
+	}
 
+	@Override
 	public Estado disponibilizar(){
-
+		return Disponible.getInstance();
 	}
 }

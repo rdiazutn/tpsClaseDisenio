@@ -10,18 +10,18 @@ import javax.persistence.*;
 public abstract class Estado {
 
 	public Estado disponibilizar(){
-
+		return this;
 	}
 
 	public Estado prestar(){
-
+		return this;
 	}
 
 	public Estado reparar(){
-
+		return this;
 	}
 
 	public Estado retrasar(){
-
+		return this;
 	}
 }

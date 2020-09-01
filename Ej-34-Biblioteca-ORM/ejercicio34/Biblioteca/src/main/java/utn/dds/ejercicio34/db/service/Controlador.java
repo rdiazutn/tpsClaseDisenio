@@ -9,6 +9,7 @@ import utn.dds.ejercicio34.db.entity.Prestamo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Daiana
@@ -48,8 +49,14 @@ public class Controlador {
 	}
 
 	public void mostrarMultas(Lector lector) {
-		List<Multa> multas = lector.getMultas();
-		multas.stream().forEach(multa -> System.out.println(multa.toString()));
+		Set<Multa> multas = lector.getMultas();
+		if(multas.size() == 0) {
+			System.out.println("El lector " + lector.getNombreApellido() + " no posee multas.");
+		}
+		else {
+			System.out.println("Se presentan las multas del lector: " + lector.getNombreApellido());
+			multas.stream().forEach(multa -> System.out.println(multa.toString()));
+		}
 	}
 
 	public void devolverLibro(Prestamo prestamo){
@@ -79,7 +86,7 @@ public class Controlador {
 		copiaLibro.serPrestada();
 		lector.agregarPrestamo(copiaLibro, observacion, DURACION_PRESTAMO);
 		lectorService.save(lector);
-
+		copiaLibroService.save(copiaLibro);
 	}
 
 }

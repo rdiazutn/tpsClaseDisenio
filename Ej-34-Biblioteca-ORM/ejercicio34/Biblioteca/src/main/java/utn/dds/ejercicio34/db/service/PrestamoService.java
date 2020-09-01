@@ -22,8 +22,7 @@ public class PrestamoService extends CustomJPAService<Prestamo> {
         return prestamoRepository;
     }
 
-    public Prestamo findPrestamoBy(Lector lector, CopiaLibro copiaLibro) {
-        List<Prestamo> prestamoList = prestamoRepository.findPrestamoBy(lector, copiaLibro);
-        return prestamoList.isEmpty() ? null : prestamoList.get(0);
+    public List<Prestamo> findPrestamoBy(Lector lector) {
+        return prestamoRepository.findPrestamoBy(lector);
     }
 }

@@ -3,10 +3,7 @@ package utn.dds.ejercicio34.db.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -29,35 +26,35 @@ public class Lector {
 	@Column(name = "DOMICILIO")
 	private String domicilio;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "lector")
-	private List<Multa> multas;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lector")
+	private Set<Multa> multas;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "lector")
-	private List<Prestamo> prestamos;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lector")
+	private Set<Prestamo> prestamos;
 
 	@Column(name = "TELEFONO", length = 50)
 	private String telefono;
 
-	public Lector(){
+	public Lector() {
 
 	}
 
-	public void agregarPrestamo(CopiaLibro libro, String observacion, int duracionPrestamo){
-		if (this.prestamos == null){
-			this.prestamos = new ArrayList<>();
+	public void agregarPrestamo(CopiaLibro libro, String observacion, int duracionPrestamo) {
+		if (this.prestamos == null) {
+			this.prestamos = new HashSet<>();
 		}
 		this.prestamos.add(new Prestamo(libro, LocalDateTime.now(), this, observacion, duracionPrestamo));
 	}
 
-	public void cargarMulta(Multa multa){
+	public void cargarMulta(Multa multa) {
+		this.multas.add(multa);
+	}
+
+	public void devolver(CopiaLibro copia) {
 
 	}
 
-	public void devolver(CopiaLibro copia){
-
-	}
-
-	public Boolean puedePrestarseUnaCopia(){
+	public Boolean puedePrestarseUnaCopia() {
 		return false;
 	}
 
@@ -85,19 +82,19 @@ public class Lector {
 		this.domicilio = domicilio;
 	}
 
-	public List<Multa> getMultas() {
+	public Set<Multa> getMultas() {
 		return multas;
 	}
 
-	public void setMultas(List<Multa> multas) {
+	public void setMultas(Set<Multa> multas) {
 		this.multas = multas;
 	}
 
-	public List<Prestamo> getPrestamos() {
+	public Set<Prestamo> getPrestamos() {
 		return prestamos;
 	}
 
-	public void setPrestamos(List<Prestamo> prestamos) {
+	public void setPrestamos(Set<Prestamo> prestamos) {
 		this.prestamos = prestamos;
 	}
 

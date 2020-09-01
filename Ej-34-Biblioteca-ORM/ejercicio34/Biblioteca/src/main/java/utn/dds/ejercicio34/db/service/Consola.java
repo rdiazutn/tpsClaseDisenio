@@ -1,16 +1,11 @@
 package utn.dds.ejercicio34.db.service;
-import com.sun.org.apache.bcel.internal.ExceptionConst;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.dds.ejercicio34.db.entity.CopiaLibro;
 import utn.dds.ejercicio34.db.entity.Lector;
 import utn.dds.ejercicio34.db.entity.Prestamo;
-import utn.dds.ejercicio34.db.service.Controlador;
-import utn.dds.ejercicio34.db.service.LectorService;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.xml.ws.ServiceMode;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,8 +22,12 @@ public class Consola {
 	@Autowired
 	private PrestamoService prestamoService;
 
+	@Autowired
+	private CopiaLibroService copiaLibroService;
+
 	private Scanner scanner = new Scanner(System.in);
-	public void correrPrueba(){
+
+	public void iniciar(){
 
 		System.out.println("Bienvenido!");
 
@@ -46,10 +45,11 @@ public class Consola {
 					break;
 				case 4:
 					System.out.println("Gracias por utilizar el sistema");
+					System.exit(0);
 					return;
 			}
+			System.out.println("\n\n");
 		}
-
 	}
 
 	private void calcularMultas() {
@@ -59,16 +59,64 @@ public class Consola {
 
 	private void realizarDevolucion() {
 		Lector lector = obtenerLector();
-		CopiaLibro copiaLibro = obtenerNombreCopia();
-		Prestamo prestamo = obtenerPrestamoCon(lector, copiaLibro);
-		controlador.devolverLibro(prestamo);
+		Prestamo prestamo = obtenerPrestamoAFinalizar(lector);
+		if(prestamo != null) {
+			controlador.devolverLibro(prestamo);
+			System.out.println("Se ha devuelto el libro correctamente y se ha cargado la multa en caso de corresponder.");
+		}
 	}
 
-	private Prestamo obtenerPrestamoCon(Lector lector, CopiaLibro copiaLibro) {
-		return prestamoService.findPrestamoBy(lector, copiaLibro);
+	private Prestamo obtenerPrestamoAFinalizar(Lector lector) {
+		List<Prestamo> prestamos = obtenerPrestamosCon(lector);
+		if(prestamos.size() == 0){
+			System.out.println("No hay prestamos asociados al lector: " + lector.getNombreApellido());
+			return null;
+		}
+		System.out.println("Seleccione el prestamo que desee finalizar por su indice");
+		for(int i = 0 ; i < prestamos.size(); i ++){
+			Prestamo prestamo = prestamos.get(i);
+			System.out.println("Indice: " + i + " Prestamo: " + prestamo.getCopiaLibro().getLibro().getTitulo()
+				+ " Observacion: " + prestamo.getObservacion());
+		}
+		Integer numeroPrestamo;
+		while(true) {
+			numeroPrestamo = obtenerInteger();
+			try{
+				return prestamos.get(numeroPrestamo);
+			}catch (Exception ex) {
+				System.out.println("El indice del prestamo no pudo ser encontrado. Reintente");
+			}
+		}
+	}
+
+	private CopiaLibro obtenerCopia() {
+		List<CopiaLibro> copiasDisponibles = copiaLibroService.getCopiasDisponibles();
+		System.out.println("Seleccione el libro que desee reservar por su indice");
+		for(int i = 0 ; i < copiasDisponibles.size(); i ++){
+			CopiaLibro copiaLibro = copiasDisponibles.get(i);
+			System.out.println("Indice: " + i + " libro: " + copiaLibro.getLibro().getTitulo());
+		}
+		Integer numeroCopia;
+		while(true) {
+			numeroCopia = obtenerInteger();
+			try{
+				return copiasDisponibles.get(numeroCopia);
+			}catch (Exception ex) {
+				System.out.println("El numero de copia no pudo ser encontrado");
+			}
+		}
+	}
+
+	private List<Prestamo> obtenerPrestamosCon(Lector lector) {
+		return prestamoService.findPrestamoBy(lector);
 	}
 
 	private Lector obtenerLector() {
+		List<Lector> lectores = lectorService.getRepository().findAll();
+		System.out.println("Los lectores del sistema son:");
+		lectores.stream().forEach(lector -> {
+			System.out.println("Lector: " + lector.getNombreApellido());
+		});
 		String nombreLector = obtenerString(" nombre del lector ");
 		Lector lector = null;
 		while (true) {
@@ -77,11 +125,12 @@ public class Consola {
 				return lector;
 			}
 			System.out.println(" Lector no encontrado ");
+			nombreLector = obtenerString(" nombre del lector ");
 		}
 	}
 
 	private void realizarPrestamo() {
-		CopiaLibro copiaLibro = obtenerNombreCopia();
+		CopiaLibro copiaLibro = obtenerCopia();
 		Lector lector = obtenerLector();
 		String observacion = obtenerString("observaciones");
 		controlador.realizarPrestamo(copiaLibro, lector, observacion);
@@ -95,25 +144,28 @@ public class Consola {
 
 	private int obtenerOpcion () {
 		while(true) {
-			try {
-				System.out.println("Por favor seleccione la opcion que desee realizar:" +
-						"\n 1. Realizar un prestamo" +
-						"\n 2. Realizar una devolucion " +
-						"\n 3. Ver las multas " +
-						"\n 4. Finalizar");
-				String input = scanner.nextLine();
-				Integer opcion = Integer.valueOf(input);
-				if (opcion < 1 || opcion > 4){
-					throw new RuntimeException();
-				}
+			System.out.println("Por favor seleccione la opcion que desee realizar:" +
+					"\n 1. Realizar un prestamo" +
+					"\n 2. Realizar una devolucion " +
+					"\n 3. Ver las multas " +
+					"\n 4. Finalizar");
+			Integer opcion = obtenerInteger();
+			if (opcion >= 1 && opcion <= 4){
 				return opcion;
-			}catch (Exception ex){
-				System.out.println("Valor invalido!");
 			}
+			System.out.println("Ingrese un numero valido");
 		}
 	}
 
-
-
-
+	private Integer obtenerInteger(){
+		while(true) {
+			try {
+				String input = scanner.nextLine();
+				Integer opcion = Integer.valueOf(input);
+				return opcion;
+			}catch(Exception ex){
+				System.out.println("Valor invalido, por favor ingrese un numero");
+			}
+		}
+	}
 }
