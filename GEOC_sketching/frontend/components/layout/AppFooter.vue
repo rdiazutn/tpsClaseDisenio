@@ -36,12 +36,12 @@
 </style>
 <script>
 export default {
-  data () {
-    return {
-      icons: [
+  computed: {
+    icons () {
+      return [
         {
           name: 'UTN',
-          src: '/tpsClaseDisenio/logo-utn.png'
+          src: `${this.$router.options.base}/logo-utn.png`
         }
       ]
     }
