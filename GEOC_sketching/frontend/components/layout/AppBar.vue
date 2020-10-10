@@ -25,6 +25,7 @@
               :icon-color="menu.color"
               :title="menu.title"
               icon-x-large
+              @click="search"
             />
           </v-col>
           <v-col>
@@ -84,30 +85,35 @@ export default {
       contactPhone: '12 3456 7890',
       menus: [
         {
-          title: 'Un menu',
+          title: 'Categorías',
           path: '/',
           icon: 'mdi-format-list-bulleted',
           color: 'blue darken-4'
         },
         {
-          title: 'Un menu',
+          title: 'Mis proveedores',
           path: '/',
           icon: 'mdi-account-supervisor-circle',
           color: 'blue darken-4'
         },
         {
-          title: 'Un menu',
+          title: 'Mis productos',
           path: '/',
           icon: 'mdi-alpha-p-circle',
           color: 'blue darken-4'
         },
         {
-          title: 'Un menu',
+          title: 'Mis órdenes de compra',
           path: '/',
           icon: 'mdi-file-document',
           color: 'blue darken-4'
         }
       ]
+    }
+  },
+  methods: {
+    search () {
+      this.toastNotification('Acá habría lógica')
     }
   }
 }
