@@ -3,7 +3,7 @@
     <AppBar />
     <v-content class="nuxt-content">
       <v-row justify="center">
-        <v-col cols="9">
+        <v-col xl="9" lg="10" md="11">
           <nuxt class="nuxt-component" />
         </v-col>
       </v-row>
