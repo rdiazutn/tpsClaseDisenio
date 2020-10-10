@@ -1,6 +1,5 @@
 <template>
   <v-footer
-    dark
     padless
     class="border-top-primary"
   >
