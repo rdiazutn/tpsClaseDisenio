@@ -4,9 +4,9 @@
     app
   >
     <v-row justify="center">
-      <v-col cols="8">
+      <v-col xl="8" lg="9" md="10">
         <v-row justify="center">
-          <v-col class="mt-2">
+          <v-col class="mt-2" cols="3">
             <v-row justify="start">
               <v-icon x-large color="primary">
                 mdi-alpha-g-circle
@@ -16,7 +16,7 @@
               </span>
             </v-row>
           </v-col>
-          <v-col class="mt-2">
+          <v-col class="mt-2" cols="6">
             <TheIconWithTooltip
               v-for="(menu, idx) in menus"
               :key="idx"
@@ -28,7 +28,7 @@
               @click="search"
             />
           </v-col>
-          <v-col>
+          <v-col cols="3">
             <v-card
               class="mx-auto mhx-60"
               color="header"
