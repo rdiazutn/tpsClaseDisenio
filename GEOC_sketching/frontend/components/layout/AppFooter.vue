@@ -41,7 +41,7 @@ export default {
       icons: [
         {
           name: 'UTN',
-          src: '/logo-utn.png'
+          src: '/tpsClaseDisenio/logo-utn.png'
         }
       ]
     }

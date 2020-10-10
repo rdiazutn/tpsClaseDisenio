@@ -49,11 +49,13 @@
             icon-name="mdi-magnify"
             icon-color="primary"
             title="Mas información"
+            @click="search"
           />
           <TheIconWithTooltip
             icon-name="mdi-trash-can"
             icon-color="orange"
             title="Eliminar"
+            @click="search"
           />
         </template>
       </TheFilterTable>
@@ -154,7 +156,7 @@ export default {
   },
   methods: {
     search () {
-      console.log('logica')
+      this.toastNotification('Acá habría lógica ')
     }
   }
 }
