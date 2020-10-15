@@ -45,12 +45,7 @@
           {{ item.products.map(product => product.name).join(', ') }}
         </template>
         <template #[`item.actions`]="{ item }">
-          <TheIconWithTooltip
-            icon-name="mdi-magnify"
-            icon-color="primary"
-            title="Mas información"
-            @click="procesar(item)"
-          />
+          <ProviderInfoDialog :provider-to-info="item" />
           <DeleteConfirmationDialog :provider-to-delete="item" @eliminarProveedor="removeItemFromList" />
         </template>
       </TheFilterTable>
@@ -61,14 +56,14 @@
 import { cloneDeep } from 'lodash'
 import TheLayoutWithHeader from '~/components/General/Layouts/TheLayoutWithHeader'
 import TheFilterTable from '~/components/General/Tables/TheFilterTable'
-import TheIconWithTooltip from '~/components/General/Buttons/TheButtonWithTooltip'
 import DeleteConfirmationDialog from '~/components/Index/DeleteConfirmationDialog'
+import ProviderInfoDialog from '~/components/Index/ProviderInfoDialog'
 export default {
   components: {
-    TheIconWithTooltip,
     TheLayoutWithHeader,
     TheFilterTable,
-    DeleteConfirmationDialog
+    DeleteConfirmationDialog,
+    ProviderInfoDialog
   },
   data: () => ({
     filter: {

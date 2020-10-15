@@ -2,7 +2,7 @@
   <v-dialog
     v-model="dialog"
     persistent
-    max-width="290"
+    max-width="400"
   >
     <template v-slot:activator="{ on, attrs }">
       <TheIconWithTooltip
