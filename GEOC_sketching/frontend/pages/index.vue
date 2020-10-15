@@ -44,19 +44,9 @@
         <template #[`item.products`]="{ item }">
           {{ item.products.map(product => product.name).join(', ') }}
         </template>
-        <template #[`item.actions`]="{ }">
-          <TheIconWithTooltip
-            icon-name="mdi-magnify"
-            icon-color="primary"
-            title="Mas información"
-            @click="search"
-          />
-          <TheIconWithTooltip
-            icon-name="mdi-trash-can"
-            icon-color="orange"
-            title="Eliminar"
-            @click="search"
-          />
+        <template #[`item.actions`]="{ item }">
+          <ProviderInfoDialog :provider-to-info="item" />
+          <DeleteConfirmationDialog :provider-to-delete="item" @eliminarProveedor="removeItemFromList" />
         </template>
       </TheFilterTable>
     </template>
@@ -66,12 +56,14 @@
 import { cloneDeep } from 'lodash'
 import TheLayoutWithHeader from '~/components/General/Layouts/TheLayoutWithHeader'
 import TheFilterTable from '~/components/General/Tables/TheFilterTable'
-import TheIconWithTooltip from '~/components/General/Buttons/TheButtonWithTooltip'
+import DeleteConfirmationDialog from '~/components/Index/DeleteConfirmationDialog'
+import ProviderInfoDialog from '~/components/Index/ProviderInfoDialog'
 export default {
   components: {
-    TheIconWithTooltip,
     TheLayoutWithHeader,
-    TheFilterTable
+    TheFilterTable,
+    DeleteConfirmationDialog,
+    ProviderInfoDialog
   },
   data: () => ({
     filter: {
@@ -100,10 +92,48 @@ export default {
         value: 'actions',
         sortable: false
       }
+    ],
+    providers: [
+      {
+        code: '011323161351',
+        name: 'Lorem Ipsum',
+        products: [
+          {
+            name: 'Lorem'
+          },
+          {
+            name: 'Ipsum'
+          },
+          {
+            name: 'asud'
+          },
+          {
+            name: 'oainsd'
+          }
+        ]
+      },
+      {
+        code: '011323161351',
+        name: 'Romann',
+        products: [
+          {
+            name: 'Lorem'
+          },
+          {
+            name: 'Ipsum'
+          },
+          {
+            name: 'asud'
+          },
+          {
+            name: 'oainsd'
+          }
+        ]
+      }
     ]
   }),
   computed: {
-    providers () {
+    providers2 () {
       const element = {
         code: '011323161351',
         name: 'Lorem Ipsum',
@@ -157,6 +187,9 @@ export default {
   methods: {
     search () {
       this.toastNotification('Acá habría lógica ')
+    },
+    removeItemFromList (providerToDelete) {
+      this.providers = this.providers.filter(provider => provider !== providerToDelete)
     }
   }
 }
