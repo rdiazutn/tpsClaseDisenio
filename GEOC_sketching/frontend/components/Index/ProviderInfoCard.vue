@@ -3,22 +3,30 @@
     class="mx-auto"
     outlined
   >
-    <v-card-actions>
+    <v-row no-gutters justify="center">
+      <v-col cols="11">
+        <v-card-title class="card-headline">
+          Información de proveedor
+        </v-card-title>
+      </v-col>
       <v-spacer />
-      <v-btn
-        color="orange"
-        icon
-        small
-        @click="cerrarDialogo"
-      >
-        <v-icon dark>
-          mdi-close
-        </v-icon>
-      </v-btn>
-    </v-card-actions>
-    <v-list-item three-line>
+      <v-col cols="1" class="mt-4">
+        <v-btn
+          color="orange"
+          icon
+          small
+          @click="cerrarDialogo"
+        >
+          <v-icon dark>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-divider />
+    <v-list-item three-line class="px-6 my-2">
       <v-list-item-content>
-        <v-list-item-title class="headline mb-4">
+        <v-list-item-title class="subheadline mb-4">
           {{ providerToInfo.name }}
         </v-list-item-title>
         <v-list-item-subtitle>{{ providerToInfo.products.map(product => product.name).join(', ') }}</v-list-item-subtitle>

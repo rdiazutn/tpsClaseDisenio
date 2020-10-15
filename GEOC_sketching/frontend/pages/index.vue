@@ -188,9 +188,6 @@ export default {
     search () {
       this.toastNotification('Acá habría lógica ')
     },
-    procesar (pepe) {
-      console.log(pepe)
-    },
     removeItemFromList (providerToDelete) {
       this.providers = this.providers.filter(provider => provider !== providerToDelete)
     }

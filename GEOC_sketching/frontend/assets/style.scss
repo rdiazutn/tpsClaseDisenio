@@ -53,3 +53,14 @@ body, body *{
   border-radius: 5px;
   color:white;
 }
+
+.card-headline{
+  font-size: 1.5em !important;
+  color: $base-color;
+  font-weight: 380 !important;
+  letter-spacing: 1px !important;
+}
+
+.subheadline{
+  font-size: 1.2em !important;
+}
