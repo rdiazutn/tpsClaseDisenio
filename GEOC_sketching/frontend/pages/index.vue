@@ -38,7 +38,7 @@
     </template>
     <template #body>
       <TheFilterTable
-        :items="providers"
+        :items="showableProviders"
         :headers="headers"
       >
         <template #[`item.products`]="{ item }">
@@ -69,7 +69,7 @@ export default {
     filter: {
       products: []
     },
-    products: ['Lorem', 'Ipsum', 'asud'
+    products: ['Lorem', 'Ipsum', 'asud', 'manzana'
     ],
     headers: [
       {
@@ -103,30 +103,24 @@ export default {
           },
           {
             name: 'Ipsum'
-          },
-          {
-            name: 'asud'
-          },
-          {
-            name: 'oainsd'
           }
         ]
       },
       {
-        code: '011323161351',
+        code: '35616153',
         name: 'Romann',
         products: [
           {
-            name: 'Lorem'
-          },
-          {
-            name: 'Ipsum'
-          },
-          {
             name: 'asud'
-          },
+          }
+        ]
+      },
+      {
+        code: '51912',
+        name: 'Pepito',
+        products: [
           {
-            name: 'oainsd'
+            name: 'manzana'
           }
         ]
       }
@@ -178,6 +172,13 @@ export default {
         providerMockList.push(cloneDeep(element3))
       }
       return providerMockList
+        .filter(provider =>
+          (!this.filter.code || provider.code.includes(this.filter.code)) &&
+          (!this.filter.name || provider.name.toUpperCase().includes(this.filter.name.toUpperCase())) &&
+          (this.filter.products.length === 0 || provider.products.some(product => this.filter.products.includes(product.name))))
+    },
+    showableProviders () {
+      return this.providers
         .filter(provider =>
           (!this.filter.code || provider.code.includes(this.filter.code)) &&
           (!this.filter.name || provider.name.toUpperCase().includes(this.filter.name.toUpperCase())) &&
